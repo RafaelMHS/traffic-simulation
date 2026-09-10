@@ -18,7 +18,7 @@ As mecânicas do cruzamento foram modeladas estritamente sob as diretrizes do **
 
 ---
 
-## 📂 Histórico de Experimentos (Evolução do Modelo)
+## Histórico de Experimentos (Evolução do Modelo)
 
 O desenvolvimento das análises seguiu uma abordagem iterativa, refinando a mecânica dos agentes e o rigor estatístico a cada etapa:
 
