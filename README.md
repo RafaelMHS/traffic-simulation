@@ -56,10 +56,7 @@ Um cálculo de proporção de demanda vs. proporção de vazão `(Fluxo Real / D
 ### 2. Análise de Dados (Python)
 *   Certifique-se de ter as bibliotecas instaladas: `pip install pandas matplotlib seaborn numpy`
 *   Coloque o arquivo `.csv` gerado pelo BehaviorSpace na mesma pasta.
-*   Execute os scripts de plotagem para gerar os *heatmaps* dinâmicos:
-    ```bash
-    python plot_analytics.py
-    ```
+*   Execute os scripts correspondentes para gerar as visualizações
 
 ---
 
