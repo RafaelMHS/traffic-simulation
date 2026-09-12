@@ -1,66 +1,66 @@
 # Smart Intersection: Agent-Based Traffic Control Simulation
 
-Um ambiente de simulação em NetLogo e pipeline de análise em Python construído para avaliar a eficiência, vazão e equidade de diferentes métodos de controle de tráfego urbano (Placa de Pare vs. Semáforo Estático).
+A [NetLogo](https://www.netlogo.org/index) simulation environment and Python analysis pipeline built to evaluate the efficiency, throughput, and fairness of different urban traffic control methods (Stop Sign vs. Static Traffic Light).
 
-Este projeto utiliza **Modelagem Baseada em Agentes (ABM)** combinada com parâmetros reais de Engenharia de Tráfego para comprovar matematicamente o fenômeno de inanição (*starvation*) em cruzamentos e estabelecer uma *baseline* rigorosa para futuras implementações de Inteligência Artificial (Aprendizado por Reforço).
-
----
-
-## Metodologia 
-
-Para garantir que a simulação refletisse o trânsito real, os agentes (veículos) não possuem atrasos puramente estocásticos. Cada agente é instanciado com um `score-reacao` e uma `lentidao` única que dita seu perfil psicológico durante toda a viagem.
-
-As mecânicas do cruzamento foram modeladas estritamente sob as diretrizes do **Highway Capacity Manual (HCM)**:
-
-*   **Critical Gap (Placa de Pare):** O líder da fila calcula brechas seguras no fluxo transversal baseando-se no seu nível de agressividade/atenção.
-*   **Follow-up Time (Placa de Pare):** Veículos subsequentes na fila utilizam um tempo de reação drasticamente menor, seguindo o líder em "pelotão".
-*   **Start-up Lost Time & Saturation Headway (Semáforo):** Apenas os 4 primeiros veículos da fila sofrem a inércia da arrancada no sinal verde. Do 5º em diante, o fluxo escoa de forma contínua e eficiente.
+This project uses **Agent-Based Modeling (ABM)** combined with real Traffic Engineering parameters to mathematically demonstrate the phenomenon of *starvation* at intersections and to establish a rigorous *baseline* for future Reinforcement Learning implementations.
 
 ---
 
-## Histórico de Experimentos (Evolução do Modelo)
+## Methodology
 
-O desenvolvimento das análises seguiu uma abordagem iterativa, refinando a mecânica dos agentes e o rigor estatístico a cada etapa:
+To ensure the simulation reflected real traffic conditions, agents (vehicles) do not have purely stochastic delays. Each agent is instantiated with a unique `reaction-score` and `slowness` that dictate its psychological profile throughout the entire trip.
 
-*   **Experimento 1 (Prova de Conceito):** Avaliação inicial da viabilidade do modelo com **6.100 cenários**. Serviu para validar a arquitetura básica do cruzamento e os scripts iniciais em Python para extração de dados.
-*   **Experimento 2 (Stress Test Bruto):** Teste de estresse em larga escala gerando **245.000 cenários**. Utilizou a mecânica clássica de atrasos estocásticos puros (versão anterior do código). Provou estatisticamente a ocorrência de inanição (*starvation*) na Placa de Pare, mapeando as zonas de domínio absoluto.
-*   **Experimento 3 (Simulação Pareada e Refinada):** O modelo mais atualizado. Incorpora todas as regras de atraso e inércia do *HCM* atreladas ao comportamento do agente. Executado com **24.500 cenários rigorosamente pareados** (mesmo *random-seed* para ambos os métodos de controle), garantindo precisão e eliminando o desperdício computacional.
+The intersection mechanics were modeled strictly according to the **[Highway Capacity Manual (HCM)](https://www.trb.org/Publications/hcm6e.aspx)** guidelines:
 
----
-
-## Coleta de Dados e Principais Descobertas
-
-O experimento utilizou o recurso **BehaviorSpace** para executar uma matriz de **24.500 cenários pareados** (35x35 densidades de *spawn*, 2 métodos, 10 random seeds). Os dados brutos foram processados via `Pandas` e visualizados via `Seaborn/Matplotlib`.
-
-Os resultados revelaram três diagnósticos fundamentais sobre o gargalo urbano:
-
-### 1. A Ineficiência do Tempo (Atraso)
-O Semáforo Estático pune o sistema em cenários de baixo volume. O tempo de ciclo fixo obriga a via principal a parar para vias secundárias fantasmas, gerando uma taxa de atraso acumulado significativamente maior que a Placa de Pare em madrugadas ou zonas residenciais.
-
-### 2. O Colapso e a Inanição (Vazão)
-A Placa de Pare colapsa completamente em cenários de volume assimétrico (ex: 2:1). Devido à exigência mecânica do *Critical Gap*, a via secundária entra em estado de **Inanição (*Starvation*)**, tendo seu escoamento esmagado e limitado a ~1.400 veículos, enquanto o Semáforo limpa a mesma malha ultrapassando 1.700 veículos.
-
-### 3. O Mapa da Equidade (Injustiça)
-Um cálculo de proporção de demanda vs. proporção de vazão `(Fluxo Real / Demanda Real)` comprova que nenhum dos métodos tradicionais é inerentemente justo. O gradiente revela zonas claras de domínio onde um fluxo "rouba" o tempo do outro.
+*   **Critical Gap (Stop Sign):** The lead vehicle in the queue calculates safe gaps in cross traffic based on its level of aggressiveness/attention.
+*   **Follow-up Time (Stop Sign):** Subsequent vehicles in the queue use a drastically shorter reaction time, following the leader in a "platoon."
+*   **Start-up Lost Time & Saturation Headway (Traffic Light):** Only the first 4 vehicles in the queue experience the inertia of starting up on the green light. From the 5th vehicle onward, flow proceeds continuously and efficiently.
 
 ---
 
-## Como Executar
+## Experiment History (Model Evolution)
 
-### 1. Simulação (NetLogo)
-*   Abra o arquivo `Traffic_Simulation.nlogo` no NetLogo 6.x.
-*   Selecione o método desejado (`stop sign` ou `red light`).
-*   Ajuste as taxas de `red-spawn` e `blue-spawn`.
-*   Clique em `setup` e depois em `go`.
+The development of the analyses followed an iterative approach, refining agent mechanics and statistical rigor at each stage:
 
-### 2. Análise de Dados (Python)
-*   Certifique-se de ter as bibliotecas instaladas: `pip install pandas matplotlib seaborn numpy`
-*   Coloque o arquivo `.csv` gerado pelo BehaviorSpace na mesma pasta.
-*   Execute os scripts correspondentes para gerar as visualizações
+*   **Experiment 1 (Proof of Concept):** Initial feasibility assessment of the model with **6,100 scenarios**. Used to validate the basic intersection architecture and the initial Python scripts for data extraction.
+*   **Experiment 2 (Raw Stress Test):** Large-scale stress test generating **245,000 scenarios**. Used the classic mechanic of purely stochastic delays (previous version of the code). Statistically proved the occurrence of starvation at the Stop Sign, mapping the zones of absolute dominance.
+*   **Experiment 3 (Paired and Refined Simulation):** The most up-to-date model. Incorporates all HCM delay and inertia rules tied to agent behavior. Run with **24,500 rigorously paired scenarios** (same random-seed for both control methods), ensuring precision and eliminating computational waste.
 
 ---
 
-## Próximos Passos
-*   **Fase 2:** Implementação de um Semáforo Atuado (Rule-based) utilizando laços virtuais de presença para cortar ciclos vazios.
-*   **Fase 3:** Expansão da malha viária (Grid) para observar o efeito *Gridlock* sistêmico.
-*   **Fase 4:** Integração de um agente autônomo treinado via **Q-Learning** para controle dinâmico e descentralizado da rede.
+## Data Collection and Key Findings
+
+The experiment used the **BehaviorSpace** feature to run a matrix of **24,500 paired scenarios** (35x35 spawn densities, 2 methods, 10 random seeds). Raw data was processed via `Pandas` and visualized via `Seaborn/Matplotlib`.
+
+The results revealed three fundamental diagnoses about the urban bottleneck:
+
+### 1. Time Inefficiency (Delay)
+The Static Traffic Light penalizes the system in low-volume scenarios. The fixed cycle time forces the main road to stop for phantom secondary roads, generating a significantly higher cumulative delay rate than the Stop Sign during off-peak hours or residential zones.
+
+### 2. Collapse and Starvation (Throughput)
+The Stop Sign collapses completely in asymmetric-volume scenarios (e.g., 2:1). Due to the mechanical requirement of the Critical Gap, the secondary road enters a state of **Starvation**, with its flow crushed and limited to ~1,400 vehicles, while the Traffic Light clears the same network with over 1,700 vehicles.
+
+### 3. The Fairness Map (Injustice)
+A calculation of demand proportion vs. throughput proportion `(Real Flow / Real Demand)` proves that neither traditional method is inherently fair. The gradient reveals clear zones of dominance where one flow "steals" time from the other.
+
+---
+
+## How to Run
+
+### 1. Simulation (NetLogo)
+*   Open the `Traffic_Simulation.nlogo` file in NetLogo 6.x.
+*   Select the desired method (`stop sign` or `red light`).
+*   Adjust the `red-spawn` and `blue-spawn` rates.
+*   Click `setup` and then `go`.
+
+### 2. Data Analysis (Python)
+*   Make sure you have the required libraries installed: `pip install pandas matplotlib seaborn numpy`
+*   Place the `.csv` file generated by BehaviorSpace in the same folder.
+*   Run the corresponding scripts to generate the visualizations.
+
+---
+
+## Next Steps
+*   **Phase 2:** Implementation of an Actuated Traffic Light (rule-based) using virtual presence loops to cut empty cycles.
+*   **Phase 3:** Expansion of the road network (Grid) to observe the systemic Gridlock effect.
+*   **Phase 4:** Integration of an autonomous agent trained via **Q-Learning** for dynamic, decentralized network control.

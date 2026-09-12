@@ -4,7 +4,7 @@
 "09/09/2026 22:13:40:231 +0200"
 "min-pxcor","max-pxcor","min-pycor","max-pycor"
 "-16","16","-16","16"
-"[run number]","method","slowness","red-spawn","blue-spawn","[step]","fluxo-vermelhos","fluxo-azuis","tempo-total-vermelhos","tempo-total-azuis"
+"[run number]","method","slowness","red-spawn","blue-spawn","[step]","red-throughput","blue-throughput","red-delay","blue-delay"
 "13","stop sign","15","0.5","0.5","5000","30","25","14","20"
 "14","stop sign","15","0.5","0.5","5000","22","18","24","18"
 "10","stop sign","15","0.5","0.5","5000","26","21","15","17"

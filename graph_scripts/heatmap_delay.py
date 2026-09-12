@@ -11,8 +11,8 @@ SKIP_ROWS = 6
 
 def generate(file_path, experiment_name):
     df = pd.read_csv(file_path, skiprows=SKIP_ROWS)
-    df["total_delay"] = (df["tempo-total-vermelhos"] + df["tempo-total-azuis"]) / (
-        df["fluxo-vermelhos"] + df["fluxo-azuis"] + 0.0001
+    df["total_delay"] = (df["red-delay"] + df["blue-delay"]) / (
+        df["red-throughput"] + df["blue-throughput"] + 0.0001
     )
 
     df_agg = df.groupby(["red-spawn", "blue-spawn", "method"])["total_delay"].mean().reset_index()

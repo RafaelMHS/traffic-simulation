@@ -14,8 +14,8 @@ COLORS = {"red light": "#e74c3c", "stop sign": "#2980b9"}
 def generate(file_path, experiment_name):
     df = pd.read_csv(file_path, skiprows=SKIP_ROWS)
 
-    df["delay_red"] = np.where(df["fluxo-vermelhos"] > 0, df["tempo-total-vermelhos"] / df["fluxo-vermelhos"], 0)
-    df["delay_blue"] = np.where(df["fluxo-azuis"] > 0, df["tempo-total-azuis"] / df["fluxo-azuis"], 0)
+    df["delay_red"] = np.where(df["red-throughput"] > 0, df["red-delay"] / df["red-throughput"], 0)
+    df["delay_blue"] = np.where(df["blue-throughput"] > 0, df["blue-delay"] / df["blue-throughput"], 0)
 
     df_21 = df[df["red-spawn"] == 2 * df["blue-spawn"]]
     df_agg = df_21.groupby(["red-spawn", "method"])[["delay_red", "delay_blue"]].mean().reset_index()

@@ -15,7 +15,7 @@ def generate(file_path, experiment_name):
 
     df_21 = df[df["red-spawn"] == 2 * df["blue-spawn"]]
     df_agg = (
-        df_21.groupby(["red-spawn", "method"])[["fluxo-vermelhos", "fluxo-azuis"]]
+        df_21.groupby(["red-spawn", "method"])[["red-throughput", "blue-throughput"]]
         .mean()
         .reset_index()
     )

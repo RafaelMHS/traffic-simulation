@@ -1,9 +1,9 @@
 globals [
   traffic-light-open-to
-  red-flow
-  blue-flow
-  total-time-red
-  total-time-blue
+  red-throughput
+  blue-throughput
+  red-delay
+  blue-delay
   basis-follow-up 
   increment-follow-up 
   basis-critical-gap 
@@ -42,10 +42,10 @@ to setup
   
   ; initial state of crossing and counters
   set traffic-light-open-to "horizontal"
-  set red-flow 0
-  set blue-flow 0
-  set total-time-red 0
-  set total-time-blue 0
+  set red-throughput 0
+  set blue-throughput 0
+  set red-delay 0
+  set blue-delay 0
   
   ; pavement design
   ask patches with [pycor = 0 or pxcor = 0] [
@@ -88,13 +88,13 @@ to go
       if delay < 0 [ set delay 0 ] 
       
       if color = red [
-        set red-flow red-flow + 1
-        set total-time-red total-time-red + delay 
+        set red-throughput red-throughput + 1
+        set red-delay red-delay + delay 
       ]
       
       if color = blue [
-        set blue-flow blue-flow + 1
-        set total-time-blue total-time-blue + delay 
+        set blue-throughput blue-throughput + 1
+        set blue-delay blue-delay + delay 
       ]
     
       die

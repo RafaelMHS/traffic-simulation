@@ -4,7 +4,7 @@
 "09/10/2026 15:38:47:314 +0200"
 "min-pxcor","max-pxcor","min-pycor","max-pycor"
 "-16","16","-16","16"
-"[run number]","method","red-spawn","blue-spawn","has-seed","seed","[step]","fluxo-vermelhos","fluxo-azuis","tempo-total-vermelhos","tempo-total-azuis"
+"[run number]","method","red-spawn","blue-spawn","has-seed","seed","[step]","red-throughput","blue-throughput","red-delay","blue-delay"
 "12","red light","6","1","true","1","5000","314","55","5114.0369310129745","788.2959775516038"
 "3","stop sign","2","1","true","1","5000","85","47","77.00601282537221","75.05408112403853"
 "1","stop sign","1","1","true","1","5000","55","50","43.83219114519522","62.95995909621482"

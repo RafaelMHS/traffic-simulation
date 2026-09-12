@@ -6,7 +6,7 @@ Unfairness Index explanation:
         How many times more cars are being spawned on the main road
         compared to the secondary road (the "expected" ratio).
 
-    throughput_ratio = fluxo-vermelhos / fluxo-azuis
+    throughput_ratio = red-throughput / blue-throughput
         How many times more cars actually crossed on the main road
         compared to the secondary road (the "real" ratio).
 
@@ -39,7 +39,7 @@ def generate(file_path, experiment_name):
     df["demand_ratio"] = df["red-spawn"] / (df["blue-spawn"] + epsilon)
 
     # ratio of how many cars actually crossed on the main road vs the secondary road
-    df["throughput_ratio"] = df["fluxo-vermelhos"] / (df["fluxo-azuis"] + epsilon)
+    df["throughput_ratio"] = df["red-throughput"] / (df["blue-throughput"] + epsilon)
 
     # gap between the real crossing ratio and the expected demand ratio
     # positive: secondary road is penalized | negative: main road is penalized

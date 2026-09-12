@@ -14,10 +14,10 @@ COLORS = {"red light": "#e74c3c", "stop sign": "#2980b9"}
 def generate(file_path, experiment_name):
     df = pd.read_csv(file_path, skiprows=SKIP_ROWS)
 
-    df["total_throughput"] = df["fluxo-vermelhos"] + df["fluxo-azuis"]
+    df["total_throughput"] = df["red-throughput"] + df["blue-throughput"]
     df["global_avg_delay"] = np.where(
         df["total_throughput"] > 0,
-        (df["tempo-total-vermelhos"] + df["tempo-total-azuis"]) / df["total_throughput"],
+        (df["red_delay"] + df["blue-delay"]) / df["total_throughput"],
         0,
     )
 
